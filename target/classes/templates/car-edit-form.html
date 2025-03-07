@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Car</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: #001F3F;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 32px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 10px 0;
+            text-align: center;
+            background-color: #001F3F;
+            margin: 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #FFD700;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        .container {
+            width: 50%;
+            margin: auto;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .submit-button {
+            display: block;
+            width: 100%;
+            background-color: #001F3F;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            background-color: #003366;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <ul>
+        <li><a th:href="@{/cars}">Cars</a></li>
+        <li><a th:href="@{/customers}">Customers</a></li>
+        <li><a th:href="@{/rentals}">Rentals</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <h1>Edit Car</h1>
+    <form th:action="@{/cars/edit/{id}(id=${car.id})}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" th:value="${car.id}">
+
+        <label>Brand:</label>
+        <input type="text" name="brand" th:value="${car.brand}" required>
+
+        <label>Model:</label>
+        <input type="text" name="model" th:value="${car.model}" required>
+
+        <label>Price:</label>
+        <input type="number" name="price" step="0.01" th:value="${car.price}" required>
+
+        <label>Year:</label>
+        <input type="number" name="year" th:value="${car.year}" required>
+
+        <label>License Plate:</label>
+        <input type="text" name="plate" th:value="${car.plate}" required>
+
+        <label>Available:</label>
+        <select name="available">
+            <option value="true" th:selected="${car.available}">Yes</option>
+            <option value="false" th:selected="${!car.available}">No</option>
+        </select>
+
+        <label>Current Photo:</label>
+        <div>
+            <img th:if="${car.imageBase64 != null}" th:src="'data:image/jpeg;base64,' + ${car.imageBase64}" alt="Car Photo" style="width: 150px; height: auto;">
+            <span th:if="${car.imageBase64 == null}">No Photo Available</span>
+        </div>
+
+        <label>Upload New Photo:</label>
+        <input type="file" name="imageFile" accept="image/*">
+
+        <button type="submit" class="submit-button">Update Car</button>
+    </form>
+</div>
+
+<footer>
+    <p>&copy; 2025 Car Rental. All rights reserved.</p>
+    <p><a href="/privacy-policy">Privacy Policy</a> | <a href="/terms">Terms of Use</a></p>
+</footer>
+
+</body>
+</html>

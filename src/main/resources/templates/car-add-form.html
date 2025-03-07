@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Add New Car</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; background-color: #001F3F; color: white; }
+    nav { background: #003366; padding: 10px; }
+    nav a { color: white; margin: 0 15px; text-decoration: none; }
+    nav a:hover { color: lightgray; }
+    form { width: 50%; margin: auto; background: white; padding: 20px; border-radius: 8px; color: black; }
+    label, input { display: block; width: 100%; margin-bottom: 10px; }
+    button { background-color: green; color: white; padding: 10px; border: none; cursor: pointer; }
+    button:hover { background-color: darkgreen; }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="/cars">Cars</a>
+  <a href="/customers">Customers</a>
+  <a href="/rentals">Rental Transactions</a>
+</nav>
+
+<h1>Add New Car</h1>
+
+<form th:action="@{/cars/add}" method="post" th:object="${car}" enctype="multipart/form-data">
+  <label>Brand:</label>
+  <input type="text" th:field="*{brand}" required>
+
+  <label>Model:</label>
+  <input type="text" th:field="*{model}" required>
+
+  <label>Price:</label>
+  <input type="number" th:field="*{price}" step="0.01" required>
+
+  <label>Year:</label>
+  <input type="number" th:field="*{year}" required>
+
+  <label>License Plate:</label>
+  <input type="text" th:field="*{plate}" required>
+
+  <label>Available?</label>
+  <input type="checkbox" th:field="*{available}">
+
+  <label>Upload Image:</label>
+  <input type="file" name="imageFile">
+
+  <button type="submit">Save</button>
+</form>
+
+<a href="/cars">Back</a>
+</body>
+</html>

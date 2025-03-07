@@ -1,0 +1,19 @@
+<form th:action="@{/rentals/add}" th:object="${rental}" method="post">
+    <label for="customerId">Müşteri Seçin:</label>
+    <select id="customerId" name="customerId">
+        <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.name}"></option>
+    </select>
+    <label for="carId">Araç Seçin:</label>
+    <select id="carId" name="carId">
+        <option th:each="car : ${availableCars}" th:value="${car.id}" th:text="${car.brand} + ' ' + ${car.model}"></option>
+    </select>
+    <label for="startDate">Başlangıç Tarihi:</label>
+    <input type="date" id="startDate" th:field="*{startDate}">
+    <label for="endDate">Bitiş Tarihi:</label>
+    <input type="date" id="endDate" th:field="*{endDate}">
+    <label for="packageType">Paket Tipi:</label>
+    <input type="text" id="packageType" th:field="*{packageType}">
+    <label for="price">Fiyat:</label>
+    <input type="number" id="price" th:field="*{price}">
+    <button type="submit">Kaydet</button>
+</form>
